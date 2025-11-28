@@ -57,6 +57,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        construction: {
+          steel: "hsl(var(--construction-steel))",
+          concrete: "hsl(var(--construction-concrete))",
+          dirt: "hsl(var(--construction-dirt))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
