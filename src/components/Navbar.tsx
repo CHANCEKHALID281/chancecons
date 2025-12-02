@@ -1,19 +1,32 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu, X, Truck } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { data: logoUrl } = useQuery({
+    queryKey: ["logo-content"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("site_content")
+        .select("content")
+        .eq("section", "logo")
+        .maybeSingle();
+      return data?.content || null;
+    },
+  });
+
   const scrollToSection = (sectionId: string) => {
     setIsMenuOpen(false);
     
     if (location.pathname !== "/") {
       navigate("/");
-      // Wait for navigation then scroll
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
@@ -44,8 +57,14 @@ export const Navbar = () => {
           onClick={scrollToTop}
           className="flex items-center gap-2 font-bold text-xl text-primary hover:opacity-80 transition-opacity"
         >
-          <Truck className="w-8 h-8" />
-          <span>H&F Ltd</span>
+          {logoUrl ? (
+            <img src={logoUrl} alt="H&F Ltd" className="h-10 max-w-[150px] object-contain" />
+          ) : (
+            <>
+              <Truck className="w-8 h-8" />
+              <span>H&F Ltd</span>
+            </>
+          )}
         </button>
 
         {/* Desktop Navigation */}

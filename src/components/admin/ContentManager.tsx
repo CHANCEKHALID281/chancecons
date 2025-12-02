@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Save } from "lucide-react";
+import { LogoManager } from "./LogoManager";
 
 export const ContentManager = () => {
   const queryClient = useQueryClient();
@@ -64,8 +65,11 @@ export const ContentManager = () => {
       <h2 className="text-2xl font-bold">Content Management</h2>
       <p className="text-muted-foreground">Edit the text content displayed on your public website.</p>
 
+      {/* Logo Manager */}
+      <LogoManager />
+
       <div className="grid gap-6">
-        {content?.map((item) => (
+        {content?.filter(item => item.section !== "logo").map((item) => (
           <Card key={item.id}>
             <CardHeader>
               <CardTitle>{getSectionTitle(item.section)}</CardTitle>
