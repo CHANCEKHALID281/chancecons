@@ -11,6 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { Plus, Edit, Trash2 } from "lucide-react";
+import { ImageUpload } from "./ImageUpload";
 
 export const EquipmentManager = () => {
   const queryClient = useQueryClient();
@@ -163,26 +164,23 @@ export const EquipmentManager = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="price">Rental Price (per day)</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    step="0.01"
-                    value={formData.rental_price_per_day}
-                    onChange={(e) => setFormData({ ...formData, rental_price_per_day: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="image_url">Image URL</Label>
-                  <Input
-                    id="image_url"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  />
-                </div>
+              <div>
+                <Label htmlFor="price">Rental Price (per day)</Label>
+                <Input
+                  id="price"
+                  type="number"
+                  step="0.01"
+                  value={formData.rental_price_per_day}
+                  onChange={(e) => setFormData({ ...formData, rental_price_per_day: e.target.value })}
+                />
               </div>
+
+              <ImageUpload
+                value={formData.image_url}
+                onChange={(url) => setFormData({ ...formData, image_url: url })}
+                folder="equipment"
+                label="Equipment Image"
+              />
 
               <div className="flex items-center space-x-2">
                 <Switch

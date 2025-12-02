@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { Plus, Edit, Trash2 } from "lucide-react";
+import { ImageUpload } from "./ImageUpload";
 
 type MaterialType = "construction" | "structural";
 
@@ -186,7 +187,7 @@ export const MaterialsManager = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="price">Price per Unit</Label>
                       <Input
@@ -205,15 +206,14 @@ export const MaterialsManager = () => {
                         onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="image_url">Image URL</Label>
-                      <Input
-                        id="image_url"
-                        value={formData.image_url}
-                        onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                      />
-                    </div>
                   </div>
+
+                  <ImageUpload
+                    value={formData.image_url}
+                    onChange={(url) => setFormData({ ...formData, image_url: url })}
+                    folder="materials"
+                    label="Material Image"
+                  />
 
                   <div className="flex items-center space-x-2">
                     <Switch
